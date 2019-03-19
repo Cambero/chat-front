@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/views/Login.vue';
-import RoomList from '@/components/RoomList.vue';
+import Rooms from '@/views/Rooms.vue';
 import Room from '@/views/Room.vue';
 import store from './store';
 
@@ -30,7 +30,7 @@ export default new Router({
     {
       path: '/rooms',
       name: 'Rooms',
-      component: RoomList,
+      component: Rooms,
       beforeEnter: requireAuth,
     },
     {

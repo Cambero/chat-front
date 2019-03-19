@@ -5,7 +5,6 @@
         <b-input-group prepend="Crear Sala">
           <b-form-input
             v-model="roomData.name"
-            name='name'
             type="text"
             placeholder="nombre de la sala"
             required
@@ -25,6 +24,7 @@
 
 <script>
 export default {
+  name: 'RoomForm',
   data() {
     return {
       roomData: {
@@ -36,6 +36,10 @@ export default {
   methods: {
     addRoom() {
       this.$emit('addRoom', this.roomData);
+      // WARNING
+      // TODO
+      // to reset a input??
+      Object.assign(this.$data, this.$options.data.call(this));
     },
   },
 };
