@@ -1,6 +1,6 @@
 <template lang="html">
   <b-row align-h="end">
-    <b-col cols="5">
+    <b-col cols="7">
       <b-form class='room-form pt-2' @submit.prevent="addRoom">
         <b-input-group prepend="Crear Sala">
           <b-form-input

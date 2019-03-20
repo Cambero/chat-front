@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-form class='message-form' @submit.prevent="addMessage(messageData)">
+  <b-form class='message-form pt-3' @submit.prevent="addMessage(messageData)">
     <b-input-group>
       <b-form-input
         v-model="messageData.content"
@@ -38,5 +38,3 @@ export default {
   },
 };
 </script>
-
-<style lang="css" scoped></style>

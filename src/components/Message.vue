@@ -1,7 +1,11 @@
 <template lang="html">
-  <div class="message">
-    @{{ message.username }}  {{ message.content }}
-  </div>
+  <b-container>
+    <b-row>
+      <b-col cols="4">
+        @{{ message.username }}  {{ message.content }}
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
