@@ -5,7 +5,7 @@
     <br>
     <div class="list-rooms">
       <div class="pb-5">
-        <RoomListItem v-for="room in rooms" :room="room" :key="room.id" />
+        <RoomListItem  v-for="room in rooms" :room="room" :key="room.id" />
       </div>
     </div>
   </b-container>
@@ -78,6 +78,6 @@ export default {
   max-height: 40vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  border: dotted;
+  border: 1px solid lightgrey;
 }
 </style>
