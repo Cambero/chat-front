@@ -1,11 +1,10 @@
 <template lang='html'>
-  <b-row align-h='center'>
-    <b-col cols='10'>
-      <router-link :to="{ name: 'Room', params: { id: room.id } }">
-        <h3> {{ room.name + ' (' + room.user + ')' }} </h3>
-      </router-link>
-    </b-col>
-  </b-row>
+  <li class='list-group-item d-flex align-items-center justify-content-between'>
+    <router-link :to="{ name: 'Room', params: { id: room.id } }">
+      <span> {{ room.name }} </span>
+    </router-link>
+    <span class="badge badge-primary badge-pill">{{ room.user }}</span>
+  </li>
 </template>
 
 <script>

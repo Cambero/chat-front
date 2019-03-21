@@ -5,29 +5,21 @@
         <h1 class="float-left">Salas</h1>
       </b-col>
       <b-col class="pt-2">
-        <b-input-group prepend="Filtrar">
+        <b-input-group prepend="Filtrar salas">
           <b-form-input
             v-model.trim="searchInput"
             type="text"
-            placeholder="escribe el termino para filtrar"
+            placeholder="escribe para filtrar"
             autofocus
           />
         </b-input-group>
       </b-col>
     </b-row>
 
-    <!-- <input type="text" placeholder="Filtrar Salas" v-model.trim="searchInput"> -->
-
-    <!-- <div v-if class="list-rooms">
-      <div class="pb-5">
-        <RoomListItem  v-for="room in ownRooms" :room="room" :key="room.id" />
-      </div>
-    </div> -->
-
     <div class="list-rooms">
-      <div class="pb-5">
+      <ul class='list-group-flush'>
         <RoomListItem v-for="room in searchedRooms" :room="room" :key="room.id" />
-      </div>
+      </ul>
     </div>
     <RoomForm @addRoom="createRoom"/>
   </b-container>
@@ -50,9 +42,6 @@ export default {
     };
   },
   computed: {
-    ownRooms() {
-      return _.filter(this.rooms, ['user', this.$store.getters.currentUser]);
-    },
     searchedRooms() {
       const searchFilter = room => room.name.toLowerCase().match(this.searchInput.toLowerCase());
       return _.filter(this.rooms, searchFilter);
@@ -97,9 +86,8 @@ export default {
 
 <style lang="scss" scoped>
 .list-rooms {
-  max-height: 40vh;
+  max-height: 60vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  border: 1px solid lightgrey;
 }
 </style>
