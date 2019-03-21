@@ -4,7 +4,7 @@
       <b-form class='room-form pt-2' @submit.prevent="addRoom">
         <b-input-group prepend="Crear Sala">
           <b-form-input
-            v-model="roomData.name"
+            v-model.trim="roomData.name"
             type="text"
             placeholder="nombre de la sala"
             required

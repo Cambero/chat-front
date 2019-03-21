@@ -2,7 +2,7 @@
   <b-form class='message-form pt-3' @submit.prevent="addMessage(messageData)">
     <b-input-group>
       <b-form-input
-        v-model="messageData.content"
+        v-model.trim="messageData.content"
         type="text"
         placeholder="escribe el mensaje"
         required

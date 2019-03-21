@@ -5,7 +5,7 @@
         <img src='@/assets/logo.png' width='40' alt='Chat'>
       </b-navbar-brand>
 
-      <b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
         <template v-if='currentUser'>
           <b-nav-item>
             <i class='far fa-user'></i>
