@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from '@/views/Login.vue';
+import Signup from '@/views/Signup.vue';
+import Signin from '@/views/Signin.vue';
 import Rooms from '@/views/Rooms.vue';
 import Room from '@/views/Room.vue';
 import store from './store';
@@ -24,8 +25,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: Login,
+      component: Signin,
+    },
+    {
+      path: '/sign-up',
+      component: Signup,
     },
     {
       path: '/rooms',
@@ -42,7 +46,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/rooms',
+      redirect: '/',
     },
   ],
 });

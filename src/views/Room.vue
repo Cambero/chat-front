@@ -47,20 +47,14 @@ export default {
     cable.subscriptions.create(
       { channel: 'RoomChannel', room: this.$route.params.id },
       {
-        connected() {
-          console.log('connected');
-          console.log(this);
-        },
-        disconnected() {
-          console.log('disconnected');
-        },
+        connected() { },
+        disconnected() { },
         received: (data) => {
-          console.log('reveived');
-          // if (data) {
           this.room.lastests_messages.push(data);
+
+          // scroll div to bottom
           const container = this.$el.querySelector('.list-messages');
           container.scrollTop = container.scrollHeight;
-          // }
         },
       },
     );

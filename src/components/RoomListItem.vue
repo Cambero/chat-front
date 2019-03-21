@@ -2,7 +2,7 @@
   <b-row align-h='center'>
     <b-col cols='10'>
       <router-link :to="{ name: 'Room', params: { id: room.id } }">
-        <h3> {{ room.name + ' (' + room.owner + ')' }} </h3>
+        <h3> {{ room.name + ' (' + room.user + ')' }} </h3>
       </router-link>
     </b-col>
   </b-row>
@@ -19,7 +19,7 @@ export default {
         return {
           id: '',
           name: '',
-          owner: '',
+          user: '',
         };
       },
     },

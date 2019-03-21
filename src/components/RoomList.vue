@@ -38,21 +38,9 @@ export default {
     cable.subscriptions.create(
       { channel: 'RoomChannel', room: 'list' },
       {
-        connected() {
-          console.log('connected');
-        },
-        disconnected() {
-          console.log('disconnected');
-        },
-        received: (data) => {
-          console.log('reveived');
-          console.log(data);
-          if (data) {
-            this.rooms.unshift(data);
-            // var container = this.$el.querySelector(".list-rooms");
-            // container.scrollTop = container.scrollHeight;
-          }
-        },
+        connected() {},
+        disconnected() {},
+        received: (data) => { this.rooms.unshift(data); },
       },
     );
   },

@@ -5,17 +5,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: localStorage.getItem('user'),
+    user: JSON.parse(localStorage.getItem('user')),
   },
   getters: {
+    currentUserId(state) {
+      return state.user.id;
+    },
     currentUser(state) {
-      return state.user;
+      return state.user && state.user.username;
     },
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
     },
     clearUser(state) {
       state.user = null;
@@ -23,11 +26,54 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    signup({ commit }, { user }) {
-      commit('setUser', user);
+    signUp({ commit }, { username, password }) {
+      // The Promise used for router redirect in Signup.vue
+      return new Promise((resolve, reject) => {
+        Vue.http.post(
+          'http://localhost:3000/users',
+          { username, password },
+        ).then(
+          (response) => {
+            commit('setUser', response.data);
+            resolve();
+          },
+          (response) => {
+            commit('clearUser');
+            reject(response.body.errors);
+          },
+        );
+      });
     },
-    signout({ commit }) {
-      commit('clearUser');
+    signIn({ commit }, { username, password }) {
+      // The Promise used for router redirect in Signin.vue
+      return new Promise((resolve, reject) => {
+        Vue.http.post(
+          'http://localhost:3000/session',
+          { username, password },
+        ).then(
+          (response) => {
+            commit('setUser', response.data);
+            resolve();
+          },
+          (response) => {
+            commit('clearUser');
+            reject(response.body.error);
+          },
+        );
+      });
+    },
+    signOut({ commit }) {
+      // The Promise used for router redirect in TheHeader.vue
+      return new Promise((resolve) => {
+        Vue.http.delete(
+          'http://localhost:3000/session',
+        ).then(
+          () => {
+            commit('clearUser');
+            resolve();
+          },
+        );
+      });
     },
   },
 });

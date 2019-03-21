@@ -29,7 +29,7 @@ export default {
     return {
       roomData: {
         name: '',
-        owner: this.$store.getters.currentUser,
+        user: this.$store.getters.currentUserId,
       },
     };
   },
