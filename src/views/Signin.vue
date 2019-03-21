@@ -74,3 +74,10 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+.error {
+  color: red;
+  text-align: center;
+}
+</style>

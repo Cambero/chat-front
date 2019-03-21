@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   getters: {
     currentUserId(state) {
-      return state.user.id;
+      return state.user && state.user.id;
     },
     currentUser(state) {
       return state.user && state.user.username;
