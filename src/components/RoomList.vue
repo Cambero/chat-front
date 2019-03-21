@@ -26,7 +26,7 @@
 
     <div class="list-rooms">
       <div class="pb-5">
-        <RoomListItem  v-for="room in searchedRooms" :room="room" :key="room.id" />
+        <RoomListItem v-for="room in searchedRooms" :room="room" :key="room.id" />
       </div>
     </div>
     <RoomForm @addRoom="createRoom"/>

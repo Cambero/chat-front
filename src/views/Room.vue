@@ -1,18 +1,13 @@
 <template lang="html">
-  <div class="">
-    <b-navbar>
-      <b-navbar-nav>
-        <b-navbar-nav-item>
-          <h1 class="float-left">{{ room.name }} ( {{ room.user }} )</h1>
-        </b-navbar-nav-item>
-      </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-navbar-nav-item>
-          <router-link to="/rooms">Volver a salas</router-link>
-        </b-navbar-nav-item>
-      </b-navbar-nav>
-    </b-navbar>
-
+  <b-container>
+    <b-row>
+      <b-col>
+        <h1 class="float-left">{{ room.name }} ( {{ room.user }} )</h1>
+      </b-col>
+      <b-col class='text-right'>
+        <router-link to="/rooms">Volver a salas</router-link>
+      </b-col>
+    </b-row>
     <div class='list-messages'>
        <div class='pb-4'>
          <Message v-for="message in room.lastests_messages" :key="message.id" :message="message" />
@@ -20,7 +15,7 @@
     </div>
 
     <MessageForm @addMessage="createMessage" />
-  </div>
+  </b-container>
 </template>
 
 <script>

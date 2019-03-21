@@ -2,7 +2,7 @@
   <b-container>
     <b-row v-bind:class="{ 'justify-content-end': isMessageOwner }">
       <b-col cols="6" v-bind:class="{ 'text-right': isMessageOwner }">
-        <small v-if="!isMessageOwner">{{ message.username }}</small>
+        <span class='message-user' v-if="!isMessageOwner">{{ message.username }} >> </span>
         {{ message.content }}
       </b-col>
     </b-row>
@@ -31,3 +31,9 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+.message-user {
+  font-size: small;
+}
+</style>

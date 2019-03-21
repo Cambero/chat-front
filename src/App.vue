@@ -4,18 +4,21 @@
     <div class='pb-5'>
       <router-view></router-view>
     </div>
-    <b-jumbotron class="text-center">
+    <TheFooter />
+    <!-- <b-jumbotron class="text-center">
       <p>Footer</p>
-    </b-jumbotron>
+    </b-jumbotron> -->
   </b-container>
 </template>
 
 <script>
 import TheHeader from '@/components/TheHeader.vue';
+import TheFooter from '@/components/TheFooter.vue';
 
 export default {
   components: {
     TheHeader,
+    TheFooter,
   },
 };
 </script>
