@@ -1,17 +1,40 @@
 <template>
   <b-container>
-    <h1 class="float-left">Salas</h1>
-    <RoomForm @addRoom="createRoom"/>
-    <br>
+    <b-row>
+      <b-col>
+        <h1 class="float-left">Salas</h1>
+      </b-col>
+      <b-col class="pt-2">
+        <b-input-group prepend="Filtrar">
+          <b-form-input
+            v-model.trim="searchInput"
+            type="text"
+            placeholder="escribe el termino para filtrar"
+            autofocus
+          />
+        </b-input-group>
+      </b-col>
+    </b-row>
+
+    <!-- <input type="text" placeholder="Filtrar Salas" v-model.trim="searchInput"> -->
+
+    <!-- <div v-if class="list-rooms">
+      <div class="pb-5">
+        <RoomListItem  v-for="room in ownRooms" :room="room" :key="room.id" />
+      </div>
+    </div> -->
+
     <div class="list-rooms">
       <div class="pb-5">
-        <RoomListItem  v-for="room in rooms" :room="room" :key="room.id" />
+        <RoomListItem  v-for="room in searchedRooms" :room="room" :key="room.id" />
       </div>
     </div>
+    <RoomForm @addRoom="createRoom"/>
   </b-container>
 </template>
 
 <script>
+import _ from 'lodash';
 import RoomListItem from '@/components/RoomListItem.vue';
 import RoomForm from '@/components/RoomForm.vue';
 import ActionCable from 'actioncable';
@@ -23,7 +46,18 @@ export default {
   data() {
     return {
       rooms: [],
+      searchInput: '',
     };
+  },
+  computed: {
+    ownRooms() {
+      return _.filter(this.rooms, ['user', this.$store.getters.currentUser]);
+    },
+    searchedRooms() {
+      const searchFilter = room => room.name.toLowerCase().match(this.searchInput.toLowerCase());
+      return _.filter(this.rooms, searchFilter);
+    },
+
   },
   created() {
     this.$http.get('http://localhost:3000/rooms').then(
