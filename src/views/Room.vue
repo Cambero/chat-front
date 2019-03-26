@@ -22,6 +22,7 @@
 import Message from '@/components/Message.vue';
 import MessageForm from '@/components/MessageForm.vue';
 import ActionCable from 'actioncable';
+import api from '@/api';
 
 const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
@@ -40,17 +41,13 @@ export default {
   },
   created() {
     console.log('Room.vue -> created()');
-    this.$http.get(`http://localhost:3000/rooms/${this.$route.params.id}`).then(
-      (response) => {
-        this.room = response.data;
-      },
-      (response) => {
-        if (response.data.status === 404) {
-          this.$router.push('/rooms');
-        }
-        console.log(`[Room.created()]Something went wrong!${response.data}`);
-      },
-    );
+    api.getRoom(this.$route.params.id).then((response) => {
+      this.room = response.data;
+    }).catch((error) => {
+      console.log(`[Room.created() getRoom]Something went wrong!${error}`);
+    });
+
+
     cable.subscriptions.create(
       { channel: 'RoomChannel', room: this.$route.params.id },
       {
@@ -68,18 +65,10 @@ export default {
   },
   methods: {
     createMessage(messageData) {
-      console.log(this.$route.params.id);
-      this.$http.post(
-        `http://localhost:3000/rooms/${this.$route.params.id}/messages`,
-        { message: messageData },
-      ).then(
-        (response) => {
-          console.log(`createMessage ok: ${response.data}`);
-        },
-        (response) => {
-          console.log(`[Room.vue->createMessage]Something went wrong!${response.data}`);
-        },
-      );
+      api.createMessage(this.$route.params.id, messageData).then(() => {
+      }).catch((error) => {
+        console.log(`[createMessage]Something went wrong!${error}`);
+      });
     },
   },
   components: {

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import api from './api';
 
 Vue.use(Vuex);
 
@@ -29,50 +30,42 @@ export default new Vuex.Store({
     signUp({ commit }, { username, password }) {
       // The Promise used for router redirect in Signup.vue
       return new Promise((resolve, reject) => {
-        Vue.http.post(
-          'http://localhost:3000/users',
-          { username, password },
-        ).then(
-          (response) => {
+        api
+          .createUser(username, password)
+          .then((response) => {
             commit('setUser', response.data);
             resolve();
-          },
-          (response) => {
+          })
+          .catch((error) => {
             commit('clearUser');
-            reject(response.body.errors);
-          },
-        );
+            // reject(response.body.errors);
+            reject(error.response.data.errors);
+          });
       });
     },
     signIn({ commit }, { username, password }) {
       // The Promise used for router redirect in Signin.vue
       return new Promise((resolve, reject) => {
-        Vue.http.post(
-          'http://localhost:3000/session',
-          { username, password },
-        ).then(
-          (response) => {
+        api
+          .createSession(username, password)
+          .then((response) => {
             commit('setUser', response.data);
             resolve();
-          },
-          (response) => {
+          })
+          .catch((error) => {
             commit('clearUser');
-            reject(response.body.error);
-          },
-        );
+            // reject(response.body.error);
+            reject(error.response.data.error);
+          });
       });
     },
     signOut({ commit }) {
       // The Promise used for router redirect in TheHeader.vue
       return new Promise((resolve) => {
-        Vue.http.delete(
-          'http://localhost:3000/session',
-        ).then(
-          () => {
-            commit('clearUser');
-            resolve();
-          },
-        );
+        api.deleteSession().then(() => {
+          commit('clearUser');
+          resolve();
+        });
       });
     },
   },

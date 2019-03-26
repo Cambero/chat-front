@@ -31,6 +31,8 @@ import RoomListItem from '@/components/RoomListItem.vue';
 import RoomForm from '@/components/RoomForm.vue';
 import ActionCable from 'actioncable';
 
+import api from '@/api';
+
 const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
 export default {
@@ -49,14 +51,11 @@ export default {
 
   },
   created() {
-    this.$http.get('http://localhost:3000/rooms').then(
-      (response) => {
-        this.rooms = response.data;
-      },
-      (response) => {
-        console.log(`[Rooms.created()]Something went wrong!${response.data}`);
-      },
-    );
+    api.getRooms().then((response) => {
+      this.rooms = response.data;
+    }).catch((error) => {
+      console.log(`[Rooms.created() get Rooms]Something went wrong!${error}`);
+    });
 
     cable.subscriptions.create(
       { channel: 'RoomChannel', room: 'list' },
@@ -69,12 +68,9 @@ export default {
   },
   methods: {
     createRoom(roomData) {
-      this.$http.post('http://localhost:3000/rooms/', { room: roomData }).then(
-        {},
-        (response) => {
-          console.log(`[RoomList->createRoom]Something went wrong: ${response.data}`);
-        },
-      );
+      api.createRoom(roomData).then(() => {}).catch((error) => {
+        console.log(`[CreateRoom] Something went wrong!${error}`);
+      });
     },
   },
   components: {
