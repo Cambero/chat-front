@@ -12,8 +12,6 @@
 <script>
 import ActionCable from 'actioncable';
 
-const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
-
 export default {
   data() {
     return {
@@ -21,6 +19,7 @@ export default {
     };
   },
   created() {
+    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable?user_id=${this.$store.getters.currentUserId}`);
     cable.subscriptions.create(
       { channel: 'RoomChannel', room: `user_${this.$store.getters.currentUser}` },
       {

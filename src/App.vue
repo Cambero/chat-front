@@ -4,10 +4,7 @@
     <div class='pb-5'>
       <router-view></router-view>
     </div>
-    <TheFooter />
-    <!-- <b-jumbotron class="text-center">
-      <p>Footer</p>
-    </b-jumbotron> -->
+    <TheFooter v-if="this.$store.getters.currentUser"/>
   </b-container>
 </template>
 

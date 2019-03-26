@@ -8,13 +8,20 @@
         <router-link to="/rooms">Volver a salas</router-link>
       </b-col>
     </b-row>
-    <div class='list-messages'>
-       <div class='pb-4'>
-         <Message v-for="message in room.lastests_messages" :key="message.id" :message="message" />
-       </div>
-    </div>
-
-    <MessageForm @addMessage="createMessage" />
+    <b-row>
+      <b-col>
+        <div class='list-messages'>
+          <div class='pb-4'>
+            <Message
+              v-for="message in room.lastests_messages"
+              :key="message.id"
+              :message="message"
+            />
+          </div>
+        </div>
+        <MessageForm @addMessage="createMessage" />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -23,8 +30,6 @@ import Message from '@/components/Message.vue';
 import MessageForm from '@/components/MessageForm.vue';
 import ActionCable from 'actioncable';
 import api from '@/api';
-
-const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
 export default {
   name: 'Room',
@@ -40,6 +45,7 @@ export default {
     },
   },
   created() {
+    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable?user_id=${this.$store.getters.currentUserId}`);
     console.log('Room.vue -> created()');
     api.getRoom(this.$route.params.id).then((response) => {
       this.room = response.data;

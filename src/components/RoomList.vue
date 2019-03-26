@@ -33,8 +33,6 @@ import ActionCable from 'actioncable';
 
 import api from '@/api';
 
-const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
-
 export default {
   name: 'RoomList',
   data() {
@@ -57,6 +55,7 @@ export default {
       console.log(`[Rooms.created() get Rooms]Something went wrong!${error}`);
     });
 
+    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable?user_id=${this.$store.getters.currentUserId}`);
     cable.subscriptions.create(
       { channel: 'RoomChannel', room: 'list' },
       {

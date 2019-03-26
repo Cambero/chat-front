@@ -37,7 +37,6 @@ export default {
   createMessage(roomId, messageData) {
     return axios.post(`/rooms/${roomId}/messages`, { message: messageData });
   },
-
   createSession(username, password) {
     return axios.post('/session', { username, password });
   },
@@ -46,6 +45,9 @@ export default {
   },
   createUser(username, password) {
     return axios.post('/users', { username, password });
+  },
+  getUsers() {
+    return axios.get('/users');
   },
 };
 
