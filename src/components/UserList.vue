@@ -24,6 +24,7 @@
 
 <script>
 import api from '@/api';
+import ActionCable from 'actioncable';
 
 export default {
   name: 'UserList',
@@ -38,6 +39,20 @@ export default {
     }).catch((error) => {
       console.log(`[UserList.created() getUsers]Something went wrong!${error}`);
     });
+
+    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable?user_id=${this.$store.getters.currentUserId}`);
+    cable.subscriptions.create(
+      { channel: 'RoomChannel', room: 'userlist' },
+      {
+        connected() {},
+        disconnected() {},
+        received: () => {
+          api.getUsers().then((response) => {
+            this.users = response.data;
+          });
+        },
+      },
+    );
   },
 };
 </script>
