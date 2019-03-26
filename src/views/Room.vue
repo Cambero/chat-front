@@ -9,7 +9,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col>
+      <b-col cols='8'>
         <div class='list-messages'>
           <div class='pb-4'>
             <Message
@@ -21,6 +21,9 @@
         </div>
         <MessageForm @addMessage="createMessage" />
       </b-col>
+      <b-col cols="4">
+        <UserList />
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -28,6 +31,7 @@
 <script>
 import Message from '@/components/Message.vue';
 import MessageForm from '@/components/MessageForm.vue';
+import UserList from '@/components/UserList.vue';
 import ActionCable from 'actioncable';
 import api from '@/api';
 
@@ -80,6 +84,7 @@ export default {
   components: {
     Message,
     MessageForm,
+    UserList,
   },
 };
 </script>
