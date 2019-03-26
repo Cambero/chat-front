@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='mentions' class="bg-light">
       Menciones:
       <ul>
         <li v-for="mention in mentions" :key="mention">
@@ -34,5 +34,8 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+#mentions {
+  min-height: 10vh;
+}
 </style>
