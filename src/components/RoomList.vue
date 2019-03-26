@@ -1,6 +1,11 @@
 <template>
   <b-container>
-    <b-row>
+    <div v-if="isEmpty" class="pt-3">
+      <h1 class="text-center">
+        Aún no hay salas, crea la primera
+      </h1>
+    </div>
+    <b-row v-else>
       <b-col>
         <h1 class="float-left">Salas</h1>
       </b-col>
@@ -42,6 +47,9 @@ export default {
     };
   },
   computed: {
+    isEmpty() {
+      return this.rooms.length === 0;
+    },
     searchedRooms() {
       const searchFilter = room => room.name.toLowerCase().match(this.searchInput.toLowerCase());
       return _.filter(this.rooms, searchFilter);
